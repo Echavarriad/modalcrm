@@ -1,0 +1,1 @@
+// script actualizado con soporte a nodos tipo Acción

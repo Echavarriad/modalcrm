@@ -1,0 +1,57 @@
+/* ——— Layout general ——— */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+#canvas {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 60px); /* resta la altura de la barra superior */
+    background: #f0f0f0;
+}
+
+/* ——— Nodos ——— */
+.nodo {
+    position: absolute;
+    width: 200px;
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: move;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.titulo       { font-weight: bold; margin-bottom: 5px; }
+.descripcion  { font-size: 0.9em; color: #555; }
+
+/* ——— Endpoints ——— */
+.endpoint {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 20;
+}
+
+.endpoint.entrada { left: -6px;  background: #6c757d; } /* gris Bootstrap */
+.endpoint.salida  { right: -6px; background: #0d6efd; } /* azul Bootstrap */
+
+/* ——— Líneas (SVG) ——— */
+svg#lineas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ——— Tooltip flotante ——— */
+.tooltip-float { pointer-events: none; }

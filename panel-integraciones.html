@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Administración Integraciones</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="estilos.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <div class="container border p-4 rounded shadow">
+    <h3 id="panelTitle"><i class="bi bi-diagram-3"></i> Módulo - </h3>
+
+    <!-- Secciones (renderizadas por JS) -->
+    <div class="d-flex gap-2 mb-3 nav-section flex-wrap" id="sectionButtons"></div>
+
+    <!-- Vistas -->
+    <div class="d-flex gap-2 mb-4 view-toggle flex-wrap">
+      <button class="btn btn-outline-success" onclick="selectView('Ver', event)"><i class="bi bi-eye"></i> Ver</button>
+      <button class="btn btn-outline-success" onclick="selectView('Editar', event)"><i class="bi bi-pencil-square"></i> Editar</button>
+      <button class="btn btn-outline-success" onclick="selectView('Configuración', event)"><i class="bi bi-gear"></i> Configuración</button>
+    </div>
+
+    <!-- Contenido dinámico -->
+    <div id="contentArea" class="fade-in"></div>
+
+    <!-- Acciones -->
+    <div class="d-flex justify-content-between mt-3">
+      <button class="btn btn-outline-danger" onclick="resetearConfiguracion()">
+        <i class="bi bi-arrow-counterclockwise"></i> Resetear configuración
+      </button>
+      <div>
+        <button class="btn btn-secondary me-2" onclick="cerrarModal()">
+          <i class="bi bi-x-circle"></i> Cerrar
+        </button>
+        <button id="saveBtn" class="btn btn-primary d-none" onclick="guardarCambios()">
+          <i class="bi bi-save"></i> Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Vincular -->
+  <div class="modal fade" id="vincularModal" tabindex="-1" aria-labelledby="vincularModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="vincularModalLabel">Vincular módulo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Deseas activar este módulo? Esto creará una configuración básica.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary" onclick="confirmarVincular()">Vincular</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="estadoCargaModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center p-4" id="estadoCargaMensaje">
+          Cargando...
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

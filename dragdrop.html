@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Constructor de Flujos</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .modelo-panel, .zona-flujo {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 10px;
+      border: 2px dashed #aaa;
+      background: #fff;
+      border-radius: 5px;
+      min-height: 100px;
+    }
+
+    .modelo {
+      padding: 10px 15px;
+      border-radius: 5px;
+      background: #0d6efd;
+      color: white;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .zona-flujo {
+      margin-top: 20px;
+      flex-direction: column;
+    }
+
+    .bloque {
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      cursor: move;
+      position: relative;
+    }
+
+    .bloque[data-tipo="Acción"] { border-left: 5px solid #0d6efd; }
+    .bloque[data-tipo="Condición"] { border-left: 5px solid #ffc107; }
+    .bloque[data-tipo="Inicio"] { border-left: 5px solid #198754; }
+    .bloque[data-tipo="Fin"] { border-left: 5px solid #dc3545; }
+
+    .bloque:hover .eliminar {
+      display: block;
+    }
+
+    .eliminar {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 2px 6px;
+      border-radius: 3px;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Modelos disponibles</h2>
+  <div class="modelo-panel">
+    <div class="modelo" draggable="true" data-tipo="Inicio">Inicio</div>
+    <div class="modelo" draggable="true" data-tipo="Acción">Acción</div>
+    <div class="modelo" draggable="true" data-tipo="Condición">Condición</div>
+    <div class="modelo" draggable="true" data-tipo="Fin">Fin</div>
+  </div>
+
+  <h2>Zona de flujo</h2>
+  <div class="zona-flujo" id="zonaFlujo"></div>
+
+  <script>
+    const modelos = document.querySelectorAll('.modelo');
+    const zonaFlujo = document.getElementById('zonaFlujo');
+
+    modelos.forEach(modelo => {
+      modelo.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', modelo.dataset.tipo);
+      });
+    });
+
+    zonaFlujo.addEventListener('dragover', e => {
+      e.preventDefault();
+    });
+
+    zonaFlujo.addEventListener('drop', e => {
+      e.preventDefault();
+      const tipo = e.dataTransfer.getData('text/plain');
+      if (tipo) agregarBloque(tipo);
+    });
+
+    function agregarBloque(tipo) {
+      const bloque = document.createElement('div');
+      bloque.className = 'bloque';
+      bloque.setAttribute('draggable', 'true');
+      bloque.dataset.tipo = tipo;
+      bloque.innerHTML = `${tipo} <button class="eliminar" onclick="this.parentElement.remove()">×</button>`;
+
+      // eventos para reordenar
+      bloque.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/bloque', JSON.stringify({ tipo }));
+        e.dataTransfer.setDragImage(bloque, 0, 0);
+        bloque.classList.add('dragging');
+        bloque.dataset.originalIndex = [...zonaFlujo.children].indexOf(bloque);
+      });
+
+      bloque.addEventListener('dragend', () => {
+        bloque.classList.remove('dragging');
+      });
+
+      zonaFlujo.appendChild(bloque);
+    }
+
+    // Habilitar reordenamiento
+    zonaFlujo.addEventListener('drop', e => {
+      e.preventDefault();
+      const dragging = document.querySelector('.bloque.dragging');
+      if (!dragging) return;
+
+      const afterElement = getDropPosition(zonaFlujo, e.clientY);
+      if (afterElement) {
+        zonaFlujo.insertBefore(dragging, afterElement);
+      } else {
+        zonaFlujo.appendChild(dragging);
+      }
+    });
+
+    function getDropPosition(container, y) {
+      const elements = [...container.querySelectorAll('.bloque:not(.dragging)')];
+      return elements.find(el => y < el.getBoundingClientRect().top + el.offsetHeight / 2);
+    }
+  </script>
+</body>
+</html>

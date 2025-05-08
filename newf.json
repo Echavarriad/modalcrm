@@ -1,0 +1,179 @@
+{
+  "nodos": [
+    {
+      "id": "nodo_1",
+      "tipo": "Inicio",
+      "nombre": "dsadas",
+      "desc": "asdas",
+      "cfg": {},
+      "x": 253,
+      "y": 498
+    },
+    {
+      "id": "nodo_2",
+      "tipo": "Acción",
+      "nombre": "asdasd",
+      "desc": "asdasd",
+      "cfg": {
+        "modulo": "analisis",
+        "promptId": "verifica_datos - Verificación de datos",
+        "promptTexto": "Analiza si los datos del cliente están completos..."
+      },
+      "x": 402,
+      "y": 89
+    },
+    {
+      "id": "nodo_3",
+      "tipo": "Condición",
+      "nombre": "context",
+      "desc": "elcontext",
+      "cfg": {
+        "cat": "ultimomensaje",
+        "sub": "usuario",
+        "niv": "contexto",
+        "op": "!=",
+        "val": "enojo"
+      },
+      "x": 733,
+      "y": 28
+    },
+    {
+      "id": "nodo_4",
+      "tipo": "Acción",
+      "nombre": "despedida",
+      "desc": "despedida",
+      "cfg": {
+        "modulo": "mensaje",
+        "promptId": "despedida - Despedida",
+        "promptTexto": "Gracias por contactarnos..."
+      },
+      "x": 523,
+      "y": 381
+    },
+    {
+      "id": "nodo_5",
+      "tipo": "Acción",
+      "nombre": "Bienvenida",
+      "desc": "Bienvenida",
+      "cfg": {
+        "modulo": "plantilla",
+        "idPlantilla": "tpl_001",
+        "cuerpo": "Hola {{nombre}}, bienvenido a nuestro servicio.",
+        "botones": [
+          "Ver más",
+          "Contactar",
+          "Cancelar"
+        ]
+      },
+      "x": 979,
+      "y": 157
+    },
+    {
+      "id": "nodo_6",
+      "tipo": "Fin",
+      "nombre": "fin",
+      "desc": "fin",
+      "cfg": {},
+      "x": 1459,
+      "y": 424
+    },
+    {
+      "id": "nodo_7",
+      "tipo": "Condición",
+      "nombre": "respuesta",
+      "desc": "respuesta",
+      "cfg": {
+        "cat": "ultimomensaje",
+        "sub": "usuario",
+        "niv": "contexto",
+        "op": "==",
+        "val": "aceptar continuar"
+      },
+      "x": 1237,
+      "y": 58
+    },
+    {
+      "id": "nodo_8",
+      "tipo": "Acción",
+      "nombre": "atender",
+      "desc": "atender",
+      "cfg": {
+        "modulo": "flujo",
+        "idFlujo": "atender",
+        "nombreFlujo": "atender"
+      },
+      "x": 1531,
+      "y": 77
+    }
+  ],
+  "conexiones": [
+    {
+      "from": "ep_2",
+      "to": "ep_3"
+    },
+    {
+      "from": "ep_4",
+      "to": "ep_7"
+    },
+    {
+      "from": "ep_5",
+      "to": "ep_7"
+    },
+    {
+      "from": "ep_9",
+      "to": "ep_10"
+    },
+    {
+      "from": "ep_8",
+      "to": "ep_14"
+    },
+    {
+      "from": "ep_11",
+      "to": "ep_18"
+    },
+    {
+      "from": "ep_12",
+      "to": "ep_18"
+    },
+    {
+      "from": "ep_15",
+      "to": "ep_19"
+    },
+    {
+      "from": "ep_16",
+      "to": "ep_19"
+    },
+    {
+      "from": "ep_17",
+      "to": "ep_19"
+    },
+    {
+      "from": "ep_21",
+      "to": "ep_18"
+    },
+    {
+      "from": "ep_20",
+      "to": "ep_22"
+    },
+    {
+      "from": "ep_23",
+      "to": "ep_18"
+    },
+    {
+      "from": "ep_24",
+      "to": "ep_18"
+    },
+    {
+      "from": "ep_25",
+      "to": "ep_18"
+    },
+    {
+      "from": "ep_9",
+      "to": "ep_26"
+    },
+    {
+      "from": "ep_29",
+      "to": "ep_18"
+    }
+  ]
+}

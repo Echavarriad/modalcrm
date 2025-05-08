@@ -1,0 +1,33 @@
+.nav-section button.active,
+.view-toggle button.active {
+  background-color: #0d6efd !important;
+  color: white !important;
+}
+
+/* Estilo para botones de módulos no vinculados */
+button.btn.disabled-module {
+  background-color: #e0e0e0 !important;
+  color: #6c757d !important;
+  pointer-events: none;
+  border-style: dashed;
+}
+
+/* Tamaño máximo del modal */
+.modal-dialog {
+  max-width: 90vw;
+}
+
+/* Animación al cargar contenido dinámico */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Etiquetas de campos */
+.field-label {
+  font-weight: bold;
+}
